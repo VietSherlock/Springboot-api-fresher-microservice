@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-standalone
+#    restart: always
+    ports:
+      - "3307:3306" #3307 port left is local port, 3306 port right is container port
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=dbIFI_WebData
+    networks:
+      - backend
+    volumes:
+      - db-data:/var/lib/mysql
+  server:
+    build: .
+#    image: user-mysql
+    ports:
+      - "8080:8080" #tuong tu sql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/dbIFI_WebData
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+    restart: always
+    depends_on:
+      - mysql
+    networks:
+      - backend
+
+volumes:
+  db-data:
+networks:
+  backend:
+#  
+#  FROM openjdk:16
+#ADD target/user-mysql.jar user-mysql.jar
+#EXPOSE 8080
+#ENTRYPOINT ["java", "-jar", "user-mysql.jar"]
