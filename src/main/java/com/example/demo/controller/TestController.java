@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/test")
-public class UserController {
+public class TestController {
 
 	@RequestMapping(value = "/anonymous", method = RequestMethod.GET)
 	public ResponseEntity<String> getAnonymous() {
