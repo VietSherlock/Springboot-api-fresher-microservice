@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -24,17 +25,26 @@ public class Customer implements Serializable { // customer object can covert to
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	private Collection<Invoice> invoices;
+	private Set<Invoice> invoices;
 
 	public Customer() {
 		super();
 	}
 
-	public Customer(int customerID, String customerName) {
+	public Customer(int customerID, String customerName, String phoneNumber) {
 		super();
 		this.customerID = customerID;
 		this.customerName = customerName;
+		this.phoneNumber = phoneNumber;
 	}
+
+	public Customer(String customerName, String phoneNumber) {
+		super();
+		this.customerName = customerName;
+		this.phoneNumber = phoneNumber;
+	}
+	
+	
 
 	public Customer(String customerName) {
 		super();
@@ -56,18 +66,27 @@ public class Customer implements Serializable { // customer object can covert to
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
 	public Collection<Invoice> getInvoices() {
 		return invoices;
 	}
 
-	public void setInvoices(Collection<Invoice> invoices) {
+	public void setInvoices(Set<Invoice> invoices) {
 		this.invoices = invoices;
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [customerID=" + customerID + ", customerName=" + customerName + "]";
+		return "Customer [customerID=" + customerID + ", customerName=" + customerName + ", phoneNumber=" + phoneNumber
+				+ "]";
 	}
 
 }
