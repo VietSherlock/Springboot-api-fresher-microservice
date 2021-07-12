@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -19,16 +21,12 @@ import lombok.ToString;
 @Table(name = "invoiceDetail")
 public class InvoiceDetail implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(insertable = false, nullable = false, updatable = false)
 	private int invoiceDetailID;
-	
-//	@Column(name = "invoiceID")
-//	private int invoiceID;
-	
-//	@Column(name = "productID")
-//	private int productID;
 	
 	@Column(name = "quantity")
 	private int quantity;
@@ -40,26 +38,19 @@ public class InvoiceDetail implements Serializable{
     @JoinColumn(name = "invoiceID", nullable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @JsonBackReference(value = "invoice-invoiceDetail")
     private Invoice invoice;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false) 
     @JoinColumn(name = "productID", nullable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @JsonBackReference(value = "invoiceDetail-product")
     private Product product;
 	
 	public InvoiceDetail() {
 		super();
 	}
-
-//	public InvoiceDetail(int invoiceDetailID, int invoiceID, int productID, int quantity, int unitPrice) {
-//		super();
-//		this.invoiceDetailID = invoiceDetailID;
-//		this.invoiceID = invoiceID;
-//		this.productID = productID;
-//		this.quantity = quantity;
-//		this.unitPrice = unitPrice;
-//	}
 	
 	public InvoiceDetail(int invoiceDetailID, int quantity, int unitPrice, Invoice invoice, Product product) {
 		super();

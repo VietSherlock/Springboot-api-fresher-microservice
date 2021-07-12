@@ -43,12 +43,6 @@ public class CustomerController {
 		return new ResponseEntity<>(customerServiceImp.findByCustomerID(customerID), HttpStatus.OK);
 	}
 
-//	// get customers by customerName
-//	@RequestMapping(value = "/{customerName}", method = RequestMethod.GET)
-//	public ResponseEntity<List<Customer>> getCustomerByName(@PathVariable(name = "customerName") String customerName) {
-//		return new ResponseEntity<>(customerServiceImp.findByCustomerName(customerName), HttpStatus.OK);
-//	}
-
 	/******************* Post Methods *************************/
 
 	// save a customer
@@ -58,12 +52,6 @@ public class CustomerController {
 	}
 
 	/************** Delete Methods ********************/
-	
-//	//delete all customers
-//	@RequestMapping(value = "/customer", method = RequestMethod.DELETE)
-//	public void deleteCustomers() {
-//		customerServiceImp.deleteAll();
-//	}
 	
 	// delete a customer by customerID
 	@RequestMapping(value = "/{customerID}", method = RequestMethod.DELETE)

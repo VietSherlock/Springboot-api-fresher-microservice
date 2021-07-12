@@ -3,8 +3,12 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.*;
 
@@ -16,11 +20,8 @@ public class Invoice implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(insertable = false, updatable = false)
+	@Column(insertable = false, updatable = false, unique = true, nullable = false)
 	private int invoiceID;
-
-//	@Column(name = "customerID")
-//	private int customerID;
 
 	@Column(name = "paymentMethod")
 	private String paymentMethod;
@@ -31,33 +32,35 @@ public class Invoice implements Serializable{
 	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	private Collection<InvoiceDetail> invoiceDetails;
+	@JsonManagedReference(value = "invoice-invoiceDetail")
+	private Set<InvoiceDetail> invoiceDetails;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "customerID", nullable = false)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
+	@JsonBackReference(value = "customer-invoice")
 	private Customer customer;
 
 	public Invoice() {
 		super();
 	}
 
-//	public Invoice(int invoiceID, int customerID, String paymentMethod, Date invoiceDate) {
-//		super();
-//		this.invoiceID = invoiceID;
-//		this.customerID = customerID;
-//		this.paymentMethod = paymentMethod;
-//		this.invoiceDate = invoiceDate;
-//	}
-
-	public Invoice(int invoiceID, String paymentMethod, Date invoiceDate, Collection<InvoiceDetail> invoiceDetails,
+	public Invoice(int invoiceID, String paymentMethod, Date invoiceDate, Set<InvoiceDetail> invoiceDetails,
 			Customer customer) {
 		super();
 		this.invoiceID = invoiceID;
 		this.paymentMethod = paymentMethod;
 		this.invoiceDate = invoiceDate;
 		this.invoiceDetails = invoiceDetails;
+		this.customer = customer;
+	}
+
+	public Invoice(int invoiceID, String paymentMethod, Date invoiceDate, Customer customer) {
+		super();
+		this.invoiceID = invoiceID;
+		this.paymentMethod = paymentMethod;
+		this.invoiceDate = invoiceDate;
 		this.customer = customer;
 	}
 
@@ -85,11 +88,11 @@ public class Invoice implements Serializable{
 		this.invoiceDate = invoiceDate;
 	}
 
-	public Collection<InvoiceDetail> getInvoiceDetails() {
+	public Set<InvoiceDetail> getInvoiceDetails() {
 		return invoiceDetails;
 	}
 
-	public void setInvoiceDetails(Collection<InvoiceDetail> invoiceDetails) {
+	public void setInvoiceDetails(Set<InvoiceDetail> invoiceDetails) {
 		this.invoiceDetails = invoiceDetails;
 	}
 
@@ -104,7 +107,7 @@ public class Invoice implements Serializable{
 	@Override
 	public String toString() {
 		return "Invoice [invoiceID=" + invoiceID + ", paymentMethod=" + paymentMethod + ", invoiceDate=" + invoiceDate
-				+ ", invoiceDetails=" + invoiceDetails + ", customer=" + customer + "]";
+				+ ", customer=" + customer + "]";
 	}
 	
 }

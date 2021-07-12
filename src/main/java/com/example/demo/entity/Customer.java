@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.*;
 
 @Entity
@@ -25,6 +27,7 @@ public class Customer implements Serializable { // customer object can covert to
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
+	@JsonManagedReference(value = "customer-invoice")
 	private Set<Invoice> invoices;
 
 	public Customer() {

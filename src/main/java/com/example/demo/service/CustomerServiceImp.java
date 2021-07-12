@@ -31,10 +31,6 @@ public class CustomerServiceImp implements CustomerService{
 		return customerRepository.findByCustomerID(customerID);
 	}
 	
-//	//get a customer by customerName
-//	public List<Customer> findByCustomerName(String customerName) {
-//		return customerRepository.findByCustomerName(customerName);
-//	}
 	
 	/*****************Save customer Methods*********************/
 	

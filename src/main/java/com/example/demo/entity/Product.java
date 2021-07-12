@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,21 +13,22 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-/**
- * @author vieet
- *
- */
 @Entity
 @Table(name = "product")
 @Data
 public class Product implements Serializable{
-	
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable = false, updatable = false, unique = true)
 	private int productID;
 	
 	@Column(name = "product_name")
@@ -35,7 +37,8 @@ public class Product implements Serializable{
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Collection<InvoiceDetail> invoiceDetails;
+    @JsonManagedReference(value = "invoiceDetail-product")
+    private Set<InvoiceDetail> invoiceDetails;
 	
 	public Product() {
 		super();
@@ -47,13 +50,17 @@ public class Product implements Serializable{
 		this.productName = productName;
 	}
 	
-	
+	public Product(String productName, Set<InvoiceDetail> invoiceDetails) {
+		super();
+		this.productName = productName;
+		this.invoiceDetails = invoiceDetails;
+	}
 	
 	public Product(String productName) {
 		super();
 		this.productName = productName;
 	}
-
+	
 	public int getProductID() {
 		return productID;
 	}
@@ -72,9 +79,8 @@ public class Product implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Product [productID=" + productID + ", productName=" + productName + "]";
+		return "Product [productID=" + productID + ", productName=" + productName + ", invoiceDetails=" + invoiceDetails
+				+ "]";
 	}
-	
-	
 	
 }
