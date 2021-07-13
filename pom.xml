@@ -33,14 +33,17 @@
 
 		<dependency>
 			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>5.2.0</version>
+			<artifactId>cucumber-jvm-deps</artifactId>
+			<version>1.0.6</version>
+			<scope>provided</scope>
 		</dependency>
+
 
 		<dependency>
 			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-java</artifactId>
+			<artifactId>cucumber-junit</artifactId>
 			<version>5.2.0</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- -->
