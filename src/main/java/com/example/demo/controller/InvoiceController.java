@@ -15,7 +15,7 @@ import com.example.demo.entity.Invoice;
 import com.example.demo.service.InvoiceServiceImp;
 
 @RestController
-@RequestMapping("/invoice")
+@RequestMapping("api/v1/invoice")
 public class InvoiceController {
 
 	@Autowired

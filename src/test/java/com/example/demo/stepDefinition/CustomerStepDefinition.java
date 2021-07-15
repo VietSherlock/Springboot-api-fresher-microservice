@@ -21,18 +21,18 @@ public class CustomerStepDefinition {
 	private RestTemplate restTemplate = new RestTemplate();
 	private ResponseEntity<String> response;
 
-	//==========Definition steps of POST method===============//
-	
+	// ==========Definition steps of POST method===============//
+
 	@Given("User Set POST customer service api endpoint")
 	public void setPostEndPoint() {
-		
+
 		System.out.println("POST URL: " + URI);
-		
+
 	}
 
 	@When("User Set request HEADER")
 	public void setRequestHeader() {
-		
+
 		headers = new HttpHeaders();
 //		headers.add("Accept", "appication/json");		//customer tra ve khong duoi dang json
 		headers.add("Content-Type", "application/json");
@@ -43,43 +43,97 @@ public class CustomerStepDefinition {
 
 		String jsonBody = "{\"customerName\":\"Ngoc Viet\",\"phoneNumber\":\"012345\"}";
 		System.out.println("\n\n" + jsonBody);
-		HttpEntity<String> entity = new HttpEntity<String>(jsonBody, headers);	
+		HttpEntity<String> entity = new HttpEntity<String>(jsonBody, headers);
 		System.out.println(headers);
 		response = restTemplate.postForEntity(URI, entity, String.class);
 	}
 
 	@Then("User receive POST valid response")
 	public void receiveValidResponse() {
-		
+
 		String responseBody = "{\"customerID\":1,\"customerName\":\"Ngoc Viet\",\"phoneNumber\":\"012345\",\"invoices\":null}";
-        System.out.println("responseBody : " + responseBody);
-        assertThat(responseBody).isEqualTo(response.getBody());
-        
+		System.out.println("responseBody : " + responseBody);
+		assertThat(responseBody).isEqualTo(response.getBody());
+
 	}
-	
+
 	@And("User receive POST status code {int}")
 	public void receiveStatusCode(int statusCode) {
-		
+
 		assertThat(response.getStatusCodeValue()).isEqualTo(statusCode);
-		
+
 	}
-	
-	//==========Definition steps of GET method===============//
+
+	// ==========Definition steps of GET method===============//
+
 	@When("User send a GET HTTP request")
 	public void sendGetRequest() {
 		response = (new RestTemplate()).getForEntity(URI, String.class);
 	}
-	
+
 	@Then("User receive GET valid response")
 	public void receiveGetValidResponse() {
-		String responseBody = "{\"customerID\":1,\"customerName\":\"Ngoc Viet\",\"phoneNumber\":\"012345\",\"invoices\":null}";
+		String responseBody = "[{\"customerID\":1,\"customerName\":\"Ngoc Viet\",\"phoneNumber\":\"012345\",\"invoices\":[]}]";
 		assertThat(responseBody).isEqualTo(response.getBody());
 	}
-	
+
 	@And("User receive GET status code {int}")
 	public void receiveGetStatusCode(int statusCode) {
 		assertThat(response.getStatusCodeValue()).isEqualTo(statusCode);
 	}
+
+	// ===================Definiton steps of PUT Method==========================//
+
+	@When("User set PUT request HEADER")
+	public void setPutRequestHeader() {
+
+		headers = new HttpHeaders();
+//		headers.add("Accept", "appication/json");		//customer tra ve khong duoi dang json
+		headers.add("Content-Type", "application/json");
+
+	}
 	
+	@And("User send a PUT HTTP request")
+	public void sendPutHttpRequest() {
+		
+		String jsonBody = "{\"customerID\":1,\"customerName\":\"Viet Sherlock\",\"phoneNumber\":\"012345\",\"invoices\":null}";
+		System.out.println("\n\n" + jsonBody);
+		HttpEntity<String> entity = new HttpEntity<String>(jsonBody, headers);
+		System.out.println(headers);
+		response = restTemplate.postForEntity(URI, entity, String.class);
+		
+	}
+	
+	@Then("User receive PUT valid response")
+	public void receivePutValidResponse() {
+		
+		String responseBody = "{\"customerID\":1,\"customerName\":\"Viet Sherlock\",\"phoneNumber\":\"012345\",\"invoices\":null}";
+		System.out.println("responseBody : " + responseBody);
+		assertThat(responseBody).isEqualTo(response.getBody());
+		
+	}
+	
+	@And("User receive PUT status code {int}")
+	public void receivePustStatusCode(int statusCode) {
+
+		assertThat(response.getStatusCodeValue()).isEqualTo(statusCode);
+
+	}
+	
+	//======================Definition steps of DELETE Method==========================//
+	@Given("User set DELETE customer endpoint")
+	public void setDeleteCustomerEndpoint() {
+		URI = URI + 1;
+	}
+	
+	@When("User send DELETE HTTP request")
+	public void sendDeleteHttpRequest() {
+		response = (new RestTemplate()).getForEntity(URI, String.class);
+	}
+	
+	@Then("User receive DELETE status code {int}")
+	public void receiveDeleteStatusCode(int statuscode) {
+		assertThat(statuscode).isEqualTo(response.getStatusCodeValue());
+	}
 	
 }

@@ -23,7 +23,7 @@ import com.example.demo.entity.Customer;
 import com.example.demo.service.CustomerServiceImp;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("api/v1/customer")
 public class CustomerController {
 
 	@Autowired
