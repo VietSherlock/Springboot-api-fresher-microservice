@@ -23,30 +23,44 @@
 
 	<dependencies>
 
-		<!-- Cucummber dependencies -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-jvm</artifactId>
+			<version>6.10.4</version>
+			<type>pom</type>
+		</dependency>
 
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>5.2.0</version>
+			<version>6.8.0</version>
+			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-jvm-deps</artifactId>
-			<version>1.0.6</version>
-			<scope>provided</scope>
-		</dependency>
-
-
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit</artifactId>
-			<version>5.2.0</version>
+			<version>6.8.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>6.8.0</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>junit</groupId> -->
+		<!-- <artifactId>junit</artifactId> -->
+		<!-- <version>4.13.2</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<version>5.7.0</version>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- -->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
@@ -131,13 +145,9 @@
 			<version>0.9.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.sun</groupId>
-			<artifactId>tools</artifactId>
-			<version>1.8.0_144</version>
-			<scope>system</scope>
-			<systemPath>C:/Program Files/Java/jdk1.8.0_291/lib/tools.jar</systemPath>
-		</dependency>
+		<!-- <dependency> <groupId>com.sun</groupId> <artifactId>tools</artifactId> 
+			<version>1.8.0_144</version> <scope>system</scope> <systemPath>C:/Program 
+			Files/Java/jdk1.8.0_291/lib/tools.jar</systemPath> </dependency> -->
 
 		<!-- <dependency> <groupId>com.h2database</groupId> <artifactId>h2</artifactId> 
 			<scope>test</scope> </dependency> -->

@@ -16,6 +16,7 @@ import com.example.demo.service.CustomerServiceImp;
 		"com.example.demo.util", "com.example.demo.security" })
 @EntityScan(basePackages = { "com.example.demo.entity" })
 @EnableJpaRepositories(basePackages = { "com.example.demo.repository" })
+
 public class IfiProjectApplication {
 
 	public static void main(String[] args) {

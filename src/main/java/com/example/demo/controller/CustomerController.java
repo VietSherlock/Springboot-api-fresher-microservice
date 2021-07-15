@@ -48,7 +48,8 @@ public class CustomerController {
 	// save a customer
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<Customer> postCustomer(@RequestBody Customer customer) {
-		return new ResponseEntity<>(customerServiceImp.save(customer), HttpStatus.CREATED);
+		Customer customer2 = customerServiceImp.save(customer);
+		return new ResponseEntity<>(customer2, HttpStatus.CREATED);
 	}
 
 	/************** Delete Methods ********************/
